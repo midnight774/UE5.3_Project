@@ -93,6 +93,8 @@ protected:
 
 	bool AutoActivateAI;
 
+	bool bDissolveEnable = true;
+
 public:
 	virtual void SetupWorldWidget(class UJHUserWidget* WorldWidget) override;
 	virtual void SetupBossWidget(class UJHBossWidget* InBossWidget);

@@ -15,22 +15,15 @@ EBTNodeResult::Type UBTTask_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerCom
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
 	APawn* OwnerPawn = Cast<APawn>(OwnerComp.GetAIOwner()->GetPawn());
-
-	if (nullptr == OwnerPawn)
-	{
-		return EBTNodeResult::Type::Failed;
-	}
+	check(OwnerPawn);
 
 	IJHEnemyAIInterface* EnemyAI = Cast<IJHEnemyAIInterface>(OwnerPawn);
-
-	if (nullptr == EnemyAI)
-	{
-		return EBTNodeResult::Type::Failed;
-	}
+	check(EnemyAI);
 
 	FAIAttackFinishedDelegate AttackEndDelegate;
 
-	AttackEndDelegate.BindLambda(
+	AttackEndDelegate.BindLambda
+	(
 		[&]()
 		{
 			FinishLatentTask(OwnerComp, EBTNodeResult::Type::Succeeded);
@@ -40,5 +33,6 @@ EBTNodeResult::Type UBTTask_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerCom
 	EnemyAI->SetAttackFinishedDelegate(AttackEndDelegate);
 	EnemyAI->AIAttack();
 
-	return Result;
+	return EBTNodeResult::Type::InProgress;
 }
+

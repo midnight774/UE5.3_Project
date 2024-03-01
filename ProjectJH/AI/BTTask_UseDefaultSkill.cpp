@@ -41,5 +41,5 @@ EBTNodeResult::Type UBTTask_UseDefaultSkill::ExecuteTask(UBehaviorTreeComponent&
 	EnemyAI->SetAttackFinishedDelegate(AttackEndDelegate);
 	ProjectileAttack->StartFireMontage();
 
-	return Result;
+	return EBTNodeResult::Type::InProgress;
 }

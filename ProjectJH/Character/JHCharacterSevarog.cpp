@@ -27,6 +27,7 @@ AJHCharacterSevarog::AJHCharacterSevarog()
 	ComboCountMax = 3;
 
 	AutoActivateAI = false;
+	bDissolveEnable = false;
 
 	FString MeshFileRef = TEXT("/Script/Engine.SkeletalMesh'/Game/ParagonSevarog/Characters/Heroes/Sevarog/Skins/Tier_1/Sevarog_Chronos/Meshes/SevarogChronos.SevarogChronos'");
 	EnemyMeshPath = FSoftObjectPath(MeshFileRef);
@@ -169,8 +170,8 @@ void AJHCharacterSevarog::BeginPlay()
 	AttackDistance = 300.0f;
 	RageRatio = 0.3f;
 
-	NextComboEnableTime = 1.2f;
-	ComboTimeMax = 2.0f;
+	NextComboEnableTime = 1.0f;
+	ComboTimeMax = 3.0f;
 	GetMesh()->SetVisibility(true);
 
 	ArrProjStartParticle.SetNum(3);

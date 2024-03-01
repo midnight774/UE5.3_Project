@@ -72,12 +72,15 @@ void AJHCharacterEnemy::SetDead()
 
 	Super::SetDead();
 
-	UJHDissolveComponent* DsvComp = NewObject<UJHDissolveComponent>(this);
-	
-	DsvComp->SetDissolveSpeed(0.2f);
-	DsvComp->SetTargetSkeletal(GetMesh());
-	DsvComp->StartDissolve();
-	DsvComp->RegisterComponent();
+	if (bDissolveEnable)
+	{
+		UJHDissolveComponent* DsvComp = NewObject<UJHDissolveComponent>(this);
+
+		DsvComp->SetDissolveSpeed(0.2f);
+		DsvComp->SetTargetSkeletal(GetMesh());
+		DsvComp->StartDissolve();
+		DsvComp->RegisterComponent();
+	}
 }
 
 void AJHCharacterEnemy::DestroyCallback()

@@ -181,7 +181,12 @@ void AJHCharacterGruntling::IsCompletedLoadWeaponMesh()
 AJHActorProjectile* AJHCharacterGruntling::SpawnProjectile(const FVector& MoveDir, const FVector& SpawnPos, float MoveSpeed, float MoveTime)
 {
 	AJHActorProjectile* Projectile = GetWorld()->SpawnActor<AJHActorProjectile>();
-	Projectile->SetMoveDir(MoveDir);
+
+	FVector PlayerPos = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+	FVector Dir = PlayerPos - SpawnPos;
+	Dir.Normalize();
+
+	Projectile->SetMoveDir(Dir);
 	Projectile->SetMoveSpeed(MoveSpeed);
 	Projectile->SetMoveTime(MoveTime);
 	Projectile->SetActorLocation(SpawnPos);

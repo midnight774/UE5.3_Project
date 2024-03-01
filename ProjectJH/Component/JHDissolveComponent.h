@@ -25,7 +25,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	FORCEINLINE void SetDissolveSpeed(float InSpeed) { DissolveSpeed = InSpeed; }
-	FORCEINLINE class UMaterialInstanceDynamic* GetDissolveMaterial() { return DissolveMaterialInst; }
+	FORCEINLINE class UMaterialInstanceDynamic* GetDissolveMaterial(const int32 Idx) { return ArrDissolveMaterialInst[Idx]; }
 	FORCEINLINE void StartDissolve() { bDissolveEnable = true; }
 	FORCEINLINE void SetTargetSkeletal(class USkeletalMeshComponent* InMesh) { TargetSkeletal = InMesh; }
 	void SetDissolveReverse(bool IsRev);
@@ -53,7 +53,7 @@ protected:
 	TObjectPtr<class UMaterialInstance> DissolveMaterial;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = DissolveInfo, Meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<class UMaterialInstanceDynamic> DissolveMaterialInst;
+	TArray<TObjectPtr<class UMaterialInstanceDynamic>> ArrDissolveMaterialInst;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = DissolveInfo, Meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class USkeletalMeshComponent> TargetSkeletal;

@@ -26,10 +26,14 @@ void UJHDissolveComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	int32 MtrlCount = TargetSkeletal->GetNumMaterials();
+	ArrDissolveMaterialInst.SetNum(MtrlCount);
 
-	DissolveMaterialInst = UMaterialInstanceDynamic::Create(TargetSkeletal->GetMaterial(0), this);
-	TargetSkeletal->SetMaterial(0, DissolveMaterialInst);
+	for (int32 i = 0; i < MtrlCount; ++i)
+	{
+		ArrDissolveMaterialInst[i] = UMaterialInstanceDynamic::Create(TargetSkeletal->GetMaterial(i), this);
+		TargetSkeletal->SetMaterial(i, ArrDissolveMaterialInst[i]);
+	}
 }
 
 
@@ -62,13 +66,13 @@ void UJHDissolveComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 			}
 		}
 		
-		if (DissolveMaterialInst)
+		int32 MtrlCount = ArrDissolveMaterialInst.Num();
+
+		for (int32 i = 0; i < MtrlCount; ++i)
 		{
-			DissolveMaterialInst->SetScalarParameterValue(TEXT("Dissolve"), Dissolve);
+			ArrDissolveMaterialInst[i]->SetScalarParameterValue(TEXT("Dissolve"), Dissolve);
 		}
 	}
-
-	// ...
 }
 
 void UJHDissolveComponent::SetDissolveReverse(bool IsRev)
